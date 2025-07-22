@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>Odin-Library</title>
+    </head>
+    <body>
+        <main>
+            <header>
+                <h1>Odin-Library</h1>
+            </header>
+            <section class="submit-book-form">
+                <h2>Submit Your Books</h2>
+                <form class="book-form">
+                    <label for="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Please list a title"
+                        required
+                        >
+                    <label for="author">Author</label>
+                    <input
+                        type="text"
+                        id="author"
+                        placeholder="Please list a author"
+                        required
+                        >
+                    <label for="read">I've read this book</label>
+                    <input
+                        type="checkbox"
+                        id="read"
+                        checked
+                        >
+                    <button class="submit-button" type="submit">Submit</button>
+                </form>
+            </section>
+            <section class="book-display">
+                <h2>Your Library</h2>
+                <!-- <div class="book">
+                    <p>Title</p>
+                    <p>Author</p>
+                </div> -->
+            </section>
+        </main>
+        <script src="index.js"></script>
+    </body>
+</html>
