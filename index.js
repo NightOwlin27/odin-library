@@ -15,11 +15,6 @@ submitBookForm = document.addEventListener('submit', function(e) {
     author = document.getElementById('author');
     read = document.getElementById('read')
 
-    // if (read) {
-    //     read.value = true;
-    // } else {
-    //     read.value = false;
-    // }
     addBookToLibrary(title.value, author.value, read.checked);
     title.value = '';
     author.value = '';
@@ -30,9 +25,17 @@ function Book (title, author, isRead) {
     if(!new.target) {
         throw Error("You must use the 'new' operator to call the constructor")
     }
+
+    randomPages = function getRandomPages () {
+        return Math.random() * (20 - 1500) + 20;
+    }
+
     this.title = title,
     this.author = author,
-    this.isRead = isRead
+    this.isRead = isRead,
+    this.id = crypto.randomUUID,
+    this.pages = randomPages.value
+    // this doesn't work. try adding the randomPages function to the addBookToLibrary function
 }
 
 // constructor test
@@ -57,7 +60,7 @@ function renderLibrary () {
     myLibrary.forEach(function(book) {
         const createBook = document.createElement('div');
         createBook.classList.add('book');
-        createBook.textContent = `${book.title} authored by ${book.author} The book is ${book.isRead}`
+        createBook.textContent = `${book.title} authored by ${book.author} The book is ${book.isRead} it has is ${book.pages}`
         bookDisplay.appendChild(createBook)
     })
 }
