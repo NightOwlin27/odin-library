@@ -12,30 +12,30 @@ const myLibrary = [
 submitBookForm = document.addEventListener('submit', function(e) {
     title = document.getElementById('title');
     author = document.getElementById('author');
-    read = document.getElementById('read')
-    page = document.getElementById('pages')
+    read = document.getElementById('read');
+    page = document.getElementById('pages');
 
     addBookToLibrary(title.value, author.value, read.checked, page.value);
     title.value = '';
     author.value = '';
     page.value = '';
      e.preventDefault();
-})
+});
+
+
 
 // toggleReadBtn = document.addEventListener('click', () => createBook.textContent = `You've Read This`)
 
 function Book (title, author, isRead, page) {
     if(!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor")
-    }
+        throw Error("You must use the 'new' operator to call the constructor");
+    };
     
     this.title = title,
     this.author = author,
     this.isRead = isRead,
     this.id = crypto.randomUUID(),
     this.page = page
-    // this.pages = pages
-    // this doesn't work. try adding the randomPages function to the addBookToLibrary function
 }
 
 // constructor test
@@ -58,30 +58,44 @@ function addBookToLibrary (title, author, isRead, page) {
 function renderLibrary () {
 
     const bookDisplay = document.querySelector('.book-display');
-    // if () {}
-    myLibrary.forEach(function(book) {
-        const createBook = document.createElement('div');
-        const readButton = document.createElement('button')
-        const removeButton = document.createElement('button');
+    const createBook = document.createElement('div');
+    const readButton = document.createElement('button');
+    const removeButton = document.createElement('button');
+    bookDisplay.innerHTML = '';
 
+    
+
+    myLibrary.forEach(function(book) {
+        
         createBook.classList.add('book');
+        createBook.setAttribute('data-book-numb', book.id);
         createBook.textContent = `${book.title} Authored by ${book.author} ${book.page} pages`;
 
         readButton.classList.add('readBtn');
         readButton.textContent = `Read`;
 
         removeButton.classList.add('removeBtn');
+        removeButton.setAttribute('data-book-numb', book.id);
         removeButton.textContent = `Remove Book`;
 
         bookDisplay.appendChild(createBook);
         createBook.appendChild(readButton);
         createBook.appendChild(removeButton);
 
-        if (book.isRead.checked) {
-            createBook.textContent = `You've Read This`;
+        if (book.isRead) {
+            const readText = document.createElement('p');
+            readText.classList.add('read-text');
+            readText.setAttribute('data-book-numb', book.id);
+            readText.textContent = `You've Read This`;
+            createBook.appendChild(readText);
         }
 
     })
+
+    readButton = document.addEventListener('click', function () {
+        const bookId = this.getAttribute('data-book-numb');
+        console.log(bookId);
+})
 }
 
 // renderLibrary test (comment out all other functions and leave array)
