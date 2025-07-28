@@ -22,8 +22,6 @@ submitBookForm = document.addEventListener('submit', function(e) {
      e.preventDefault();
 });
 
-
-
 // toggleReadBtn = document.addEventListener('click', () => createBook.textContent = `You've Read This`)
 
 function Book (title, author, isRead, page) {
@@ -47,7 +45,7 @@ function addBookToLibrary (title, author, isRead, page) {
     const newBook = new Book(title, author, isRead, page)
     myLibrary.push(newBook);
     renderLibrary();
-    console.log(myLibrary)
+    console.log(myLibrary);
 }
 
 // addBookToLibraryTest
@@ -58,14 +56,14 @@ function addBookToLibrary (title, author, isRead, page) {
 function renderLibrary () {
 
     const bookDisplay = document.querySelector('.book-display');
-    const createBook = document.createElement('div');
-    const readButton = document.createElement('button');
-    const removeButton = document.createElement('button');
     bookDisplay.innerHTML = '';
 
     
-
     myLibrary.forEach(function(book) {
+
+        const createBook = document.createElement('div');
+        const readButton = document.createElement('button');
+        const removeButton = document.createElement('button');
         
         createBook.classList.add('book');
         createBook.setAttribute('data-book-numb', book.id);
@@ -88,14 +86,28 @@ function renderLibrary () {
             readText.setAttribute('data-book-numb', book.id);
             readText.textContent = `You've Read This`;
             createBook.appendChild(readText);
-        }
+        };
 
+        readButton.addEventListener('click', function () {
+            const alreadyChecked = createBook.querySelector('.read-text');
+            if (!alreadyChecked) {
+                const readText = document.createElement('p');
+                readText.classList.add('read-text');
+                readText.setAttribute('data-book-numb', book.id);
+                readText.textContent = `You've Read This`;
+                createBook.appendChild(readText); 
+            }   
+        });
+
+        removeButton.addEventListener('click', function () {
+            const bookId = this.getAttribute('data-book-numb');
+            const index = myLibrary.findIndex(book => book.id === bookId);
+            if (index > -1) {
+                myLibrary.splice(index, 1);
+                renderLibrary();
+            }
+        });
     })
-
-    readButton = document.addEventListener('click', function () {
-        const bookId = this.getAttribute('data-book-numb');
-        console.log(bookId);
-})
 }
 
 // renderLibrary test (comment out all other functions and leave array)
